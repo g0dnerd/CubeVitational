@@ -1,6 +1,10 @@
 # TODO
 
-* Results reporting
-* Shuffle groups for seatings generation (once at the start, once after three rounds)
-* Second round is an independent tournament from the first, but both standings have to merged eventually
-* Output sorted final standings
+* Independent second draft pod with merged pairings in the end
+* event saving and loading after each round
+
+# DONE
+
+* results reporting
+* input validation for results reporting 
+* shuffle groups for seatings generation

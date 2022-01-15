@@ -1,10 +1,9 @@
 import copy
-
-from pypair import Tournament
 import csv
 import random
-from collections import OrderedDict
 from operator import getitem
+from pypair import Tournament
+from collections import OrderedDict
 
 # USER-DEFINED VARIABLES
 ROUND_NUMBER = 3
@@ -93,7 +92,7 @@ def main():
     load_players(csvPath, playerList)
     # print("Unrandomized group: ", playerList)
     playerList = randomize_seating(playerList)
-    print("Randomized seatings for this group: ", playerList[1])
+    print("\n Randomized seatings for this group: ", playerList[1])
 
     for p in range(len(playerList[0])):
         to.add_player(playerList[0][p], playerList[1][p], False)
