@@ -60,6 +60,7 @@ def report_results(pairings_, playerList_):
                 player1 = playerList_[1][playerList_[0].index(pairings_[tableNumber][0])]
                 player2 = playerList_[1][playerList_[0].index(pairings_[tableNumber][1])]
                 result = input('Enter result %s vs %s in W-L-D format: ' % (player1, player2))
+                print("")
                 resultList = list()
                 try:
                     resultList.append(result[0])
@@ -77,17 +78,22 @@ def print_standings():
     standingsDict = copy.deepcopy(to.playersDict)
     standingsDict = OrderedDict(sorted(standingsDict.items(), reverse = True, key = lambda x: getitem(x[1], 'OMW%')))
     standingsDict = OrderedDict(sorted(standingsDict.items(), reverse = True, key = lambda x: getitem(x[1], 'Points')))
+    counter = 1
     for players in standingsDict:
-        print(standingsDict[players])
+        tempName = standingsDict[players]['Name']
+        tempPoints = standingsDict[players]['Points']
+        tempOMW = (standingsDict[players]['OMW%'])[0:6]
+        print('%s. %s - %s - %s' % (counter, tempName, tempPoints, tempOMW))
+        counter += 1
 
 
 def main():
     playerList = [[] for _ in range(2)]
     csvPath = input("Please enter the full name of the relevant CSV file: ")
     load_players(csvPath, playerList)
-    print("Unrandomized group: ", playerList)
+    # print("Unrandomized group: ", playerList)
     playerList = randomize_seating(playerList)
-    print("Randomized seatings for this group: ", playerList)
+    print("Randomized seatings for this group: ", playerList[1])
 
     for p in range(len(playerList[0])):
         to.add_player(playerList[0][p], playerList[1][p], False)
@@ -101,6 +107,7 @@ def main():
 
         # print out current standings
         print('\n STANDINGS AFTER ROUND %s' % roundNumber)
+        print('   Name - Points - OMW')
         print_standings()
         roundNumber += 1
 
