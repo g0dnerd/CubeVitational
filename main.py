@@ -81,7 +81,7 @@ def print_standings():
     for players in standingsDict:
         tempName = standingsDict[players]['Name']
         tempPoints = standingsDict[players]['Points']
-        tempOMW = (standingsDict[players]['OMW%'])[0:6]
+        tempOMW = standingsDict[players]['OMW%'][0:6]
         print('%s. %s - %s - %s' % (counter, tempName, tempPoints, tempOMW))
         counter += 1
 
