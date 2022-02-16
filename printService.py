@@ -36,7 +36,7 @@ class PrintService(object):
     @staticmethod
     def print_welcome():
         print('**********************************************************************')
-        print('*               WELCOME TO THE PYPAIR TOURNAMENT MAKER               *')
+        print('*               WELCOME TO THE HAMBURG TOURNAMENT MAKER              *')
         print('**********************************************************************')
 
     @staticmethod

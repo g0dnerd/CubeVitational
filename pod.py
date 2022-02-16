@@ -13,8 +13,6 @@ class Pod:
     current_results = []
 
     def randomize_seating(self):
-        # print("Unrandomized group: ", Pod.playerList)
-        # printService.print_table(self)
         tempPlayerList = copy.deepcopy(Pod.playerList)
         [random.shuffle(sublist) for sublist in tempPlayerList]
         for i in range(len(Pod.playerList[0])):

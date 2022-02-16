@@ -1,9 +1,3 @@
-import copy
-import csv
-import random
-from operator import getitem
-from collections import OrderedDict
-
 from pypair import Tournament
 from printService import PrintService
 from pod import Pod
