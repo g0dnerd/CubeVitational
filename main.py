@@ -41,7 +41,7 @@ def report_results(pairings_, playerList_):
                 result = input('Enter result %s vs %s in W-L-D format: ' % (player1, player2))
                 resultList = list()
                 try:
-                    pod.current_results.insert(tableNumber-1, result)
+                    pod.current_results.insert(tableNumber - 1, result)
                     resultList.append(result[0])
                     resultList.append(result[2])
                     resultList.append(result[4])
@@ -62,17 +62,17 @@ def main():
 
     # Init Tournament
     pod.load_players()
-    
-    # Randomize Seatings
+
+    # Randomize seatings
     pod.randomize_seating()
-    
+
     # Add Players to Tournament
     for p in range(len(pod.playerList[0])):
         to.add_player(pod.playerList[0][p], pod.playerList[1][p], False)
 
     # Start Tournament
     for round_ in range(ROUND_NUMBER):
-        pod.new_pairings(to.pair_round()) 
+        pod.new_pairings(to.pair_round())
         printService.print_pairings(pod)
 
         report_results(pod.currentPairings, pod.playerList)
@@ -81,7 +81,7 @@ def main():
         printService.print_standings(to, pod)
         pod.roundNumber += 1
 
-        #Repeat till Finish
+        # Repeat till Finish
 
 
 if __name__ == "__main__":

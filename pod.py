@@ -1,17 +1,14 @@
 import copy
 import csv
 import random
-from operator import getitem
-from pypair import Tournament
-from collections import OrderedDict
 from printService import PrintService
 
 printService = PrintService()
 
 
-class Pod():
+class Pod:
     roundNumber = 1
-    playerList  = []
+    playerList = []
     currentPairings = []
     current_results = []
 
@@ -27,7 +24,8 @@ class Pod():
         Pod.playerList = tempPlayerList
         printService.print_table(self)
 
-    def load_players(self):
+    @staticmethod
+    def load_players():
         listToFill = [[] for _ in range(2)]
         # csvPath = input("Please enter the full name of the relevant CSV file: ")
         # print("Please enter the full name of the relevant CSV file: ")
@@ -41,9 +39,8 @@ class Pod():
                     listToFill[1].append(player[1])
 
         Pod.playerList = listToFill
-        
 
-    def new_pairings(self, new_pairings):
+    @staticmethod
+    def new_pairings(new_pairings):
         Pod.currentPairings = new_pairings
         Pod.current_results = ["MISSING"] * len(Pod.currentPairings)
-        
