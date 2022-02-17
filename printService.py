@@ -28,22 +28,11 @@ class PrintService(object):
         for players in standingsDict:
             tempName = standingsDict[players]['Name']
             tempPoints = standingsDict[players]['Points']
-            print(type(standingsDict[players]['OMW%']))
+            # print(type(standingsDict[players]['OMW%']))
             tempOMW = standingsDict[players]['OMW%'][0:6]
             print('%s. %s \t %s \t\t %s' % (counter, tempName, tempPoints, tempOMW))
             counter += 1
         print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-
-    @staticmethod
-    def print_merged_standings(to, pod, oldTo):
-
-        newStandingsDict = copy.deepcopy(to.playersDict)
-        for player in newStandingsDict:
-            newStandingsDict[player]['Points'] = to.playersDict[player]['Points'] + oldTo.playersDict[player]['Points']
-            newStandingsDict[player]['OMW%'] = (to.playersDict[player]['OMW%'] + oldTo.playersDict[player]['OMW%']) / 2
-
-        print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber + 3)
-        print('   Name  \tPoints     \tOMW')
 
     @staticmethod
     def print_welcome():
