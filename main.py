@@ -8,8 +8,6 @@ ROUND_NUMBER = 3
 # Define Classes 
 printService = PrintService()
 pod = Pod()
-to = Tournament()
-
 
 ###################### Reporting ######################
 def get_nth_key(dictionary, n=0):
@@ -39,7 +37,7 @@ def report_results(pairings_, playerList_):
                     resultList.append(result[0])
                     resultList.append(result[2])
                     resultList.append(result[4])
-                    to.report_match(tableNumber, resultList)
+                    pod.to.report_match(tableNumber, resultList)
                 except IndexError:
                     print("Error: Result must be entered in W-L-D formatting (e.g. 2-1-0)")
             except ValueError:
@@ -60,19 +58,15 @@ def main():
     # Randomize seatings
     pod.randomize_seating()
 
-    # Add Players to Tournament
-    for p in range(len(pod.playerList[0])):
-        to.add_player(pod.playerList[0][p], pod.playerList[1][p], False)
-
     # Start Tournament
     for round_ in range(ROUND_NUMBER):
-        pod.new_pairings(to.pair_round())
+        pod.new_pairings()
         printService.print_pairings(pod)
 
         report_results(pod.currentPairings, pod.playerList)
 
         # Print out current standings
-        printService.print_standings(to, pod)
+        printService.print_standings(pod)
         pod.roundNumber += 1
 
         # Repeat till Finish

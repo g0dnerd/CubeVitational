@@ -2,11 +2,12 @@ import copy
 import csv
 import random
 from printService import PrintService
+from pypair import Tournament
 
 printService = PrintService()
 
-
 class Pod:
+    to = Tournament()
     roundNumber = 1
     playerList = []
     currentPairings = []
@@ -36,7 +37,12 @@ class Pod:
                     listToFill[1].append(player[1])
 
         self.playerList = listToFill
+        self.addPlayers()
 
-    def new_pairings(self, new_pairings):
-        self.currentPairings = new_pairings
+    def new_pairings(self):
+        self.currentPairings = self.to.pair_round()
         self.current_results = ["MISSING"] * len(self.currentPairings)
+
+    def addPlayers(self):
+        for p in range(len(self.playerList[0])):
+            self.to.add_player(self.playerList[0][p], self.playerList[1][p], False)

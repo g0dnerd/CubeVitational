@@ -17,11 +17,11 @@ class PrintService(object):
         print("")
 
     @staticmethod
-    def print_standings(to, pod):
+    def print_standings(pod):
         print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
         print('   Name  \tPoints     \tOMW')
 
-        standingsDict = copy.deepcopy(to.playersDict)
+        standingsDict = copy.deepcopy(pod.to.playersDict)
         standingsDict = OrderedDict(sorted(standingsDict.items(), reverse=True, key=lambda x: getitem(x[1], 'OMW%')))
         standingsDict = OrderedDict(sorted(standingsDict.items(), reverse=True, key=lambda x: getitem(x[1], 'Points')))
         counter = 1
