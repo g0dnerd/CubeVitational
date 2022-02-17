@@ -6,11 +6,7 @@ A tool for pairing players in a swiss event
 import networkx as nx
 
 # Library for loading player dumps
-try:
-    import cPickle as pickle
-except:
-    import pickle as pickle
-
+import pickle as pickle
 import csv
 import random
 
@@ -80,7 +76,7 @@ class Tournament(object):
                 if p[0] != 'ID:':
                     if p[2]:
                         # Fixed seating is the third option
-                        self.add_player(int(p[0]), p[1], int(p[2]))
+                        self.add_player(int(p[0]), p[1], False)
                     else:
                         # If not present, leave it blank
                         self.add_player(int(p[0]), p[1])
@@ -94,13 +90,13 @@ class Tournament(object):
     def pair_round(self, forcePair=False):
         """
         Process overview:
-            1.) Create lists of players with each point value
+            1. Create lists of players with each point value
 
-            2.) Create a list of all current points and sort from highest to lowest
+            2. Create a list of all current points and sort from highest to lowest
 
-            3.) Loop through each list of points and assign players opponents based with same points
+            3. Loop through each list of points and assign players opponents based with same points
 
-            4.) Check for left over players and assign a pair down
+            4. Check for left over players and assign a pair down
         """
         if not len(self.tablesOut) or forcePair:
             self.currentRound += 1
