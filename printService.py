@@ -40,15 +40,15 @@ class PrintService(object):
         print('**********************************************************************')
 
     @staticmethod
-    def printMenue(podNumber, amountPods):
-        print('******************************* MENUE ********************************')
+    def print_menu(podNumber, amountPods):
+        print('******************************* MENU *********************************')
         print('*                                                                    *')
         print('* 1. Start/Resume Round of current Pod   2. Switch to next Pod       *')
         print('*                                                                    *')
         print('* 3. Show Standings of current Pod       4. Add Pod                  *')
         print('*                                                                    *')
         print('* 5. Show Seatings                                                   *')
-        print('*                    (Current Pod: %i from %i Pods)                    *' %(podNumber+1, amountPods))
+        print('*                    (Current Pod: %i from %i Pods)                    *' % (podNumber + 1, amountPods))
         print('**********************************************************************')
 
     @staticmethod

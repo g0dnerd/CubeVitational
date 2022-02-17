@@ -1,9 +1,7 @@
 import copy
 import csv
 import random
-from printService import PrintService
 from pypair import Tournament
-
 
 
 class Pod:
@@ -21,7 +19,6 @@ class Pod:
 
         # print("\n Randomized seatings for this group: ", tempPlayerList[1])
         self.playerList = tempPlayerList
-        
 
     def load_players(self):
         listToFill = [[] for _ in range(2)]
@@ -37,10 +34,9 @@ class Pod:
                     listToFill[1].append(player[1])
 
         self.playerList = listToFill
-        
+
         for p in range(len(self.playerList[0])):
             self.to.add_player(self.playerList[0][p], self.playerList[1][p], False)
-        
 
     def new_pairings(self):
         print("New Pairings")
@@ -48,5 +44,3 @@ class Pod:
         self.currentPairings = self.to.pair_round()
         print(self.currentPairings)
         self.current_results = ["MISSING"] * len(self.currentPairings)
-
-    

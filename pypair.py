@@ -6,10 +6,7 @@ A tool for pairing players in a swiss event
 import networkx as nx
 
 # Library for loading player dumps
-try:
-    import cPickle as pickle
-except:
-    import pickle as pickle
+import pickle as pickle
 
 import csv
 import random

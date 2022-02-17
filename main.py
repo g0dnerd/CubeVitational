@@ -1,5 +1,4 @@
-#from nis import match
-from pypair import Tournament
+# from nis import match
 from printService import PrintService
 from pod import Pod
 
@@ -25,7 +24,7 @@ def report_results(pod):
     choice = ''
 
     while (choice != 'm') and (choice != 'f'):
-        choice = input('Please choose the result you want to input (m = Menue, f = finish Round): ')
+        choice = input('Please choose the result you want to input (m = menu, f = finish round): ')
 
         # Report results
         if (choice != 'm') and (choice != 'f'):
@@ -46,10 +45,10 @@ def report_results(pod):
             except ValueError:
                 print("Error: Invalid input. Input must either be a table number from above or q to finish inputting "
                       "results.")
-        #Finish Round
+        # Finish Round
         elif choice == 'f':
             pod.new_pairings()
-            pod.roundNumber +=1
+            pod.roundNumber += 1
             printService.print_standings(pod)
 
         return choice
@@ -60,11 +59,11 @@ def main():
     # Welcome and Init
     printService.print_welcome()
     podNumber = 0
-    initNewPod()
-    
-    #************** Menue ********************
-    while(True):
-        printService.printMenue(podNumber, len(pods))
+    init_new_pod()
+
+    # ************** Menu ********************
+    while True:
+        printService.print_menu(podNumber, len(pods))
         option = input("* Please choose Option:")
 
         # Start/Resume Round of current Pod
@@ -73,33 +72,33 @@ def main():
                 printService.print_pairings(pods[podNumber])
 
                 choice = report_results(pods[podNumber])
-                if(choice == 'm'):
+                if choice == 'm':
                     break
 
-            
+
         # Switch to next Pod
         elif option == '2':
             if (len(pods) - 1) == podNumber:
                 podNumber = 0
             else:
                 podNumber += 1
-            
+
             print(pods[podNumber].currentPairings)
-            #printService.print_pairings(pods[podNumber])    
-        
+            # printService.print_pairings(pods[podNumber])
+
         # Show Standings of current Pod 
         elif option == '3':
             printService.print_standings(pods[podNumber])
-        
-        #Add Pod
+
+        # Add Pod
         elif option == '4':
             print("Add Pod")
-            initNewPod()
-        
-        #Show seatings
+            init_new_pod()
+
+        # Show seatings
         elif option == '5':
             printService.print_table(pods[podNumber])
-        
+
         elif option == '6':
             pods[podNumber].new_pairings()
         # Default / CatchAll
@@ -107,19 +106,17 @@ def main():
             print("* Please choose from Options                                            *")
 
 
-
-def initNewPod():
+def init_new_pod():
     pods.append(Pod())
     # print(len(pods))
 
-    pods[len(pods)-1].load_players()
+    pods[len(pods) - 1].load_players()
     # print(pods[len(pods)-1].playerList)
 
-    pods[len(pods)-1].randomize_seating()
+    pods[len(pods) - 1].randomize_seating()
     # print(pods[len(pods)-1].playerList)
 
-    pods[len(pods)-1].new_pairings()
-
+    pods[len(pods) - 1].new_pairings()
 
 
 if __name__ == "__main__":
