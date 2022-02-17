@@ -18,7 +18,7 @@ class PrintService(object):
 
     @staticmethod
     def print_standings(pod):
-        print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
+        print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
         print('   Name  \tPoints     \tOMW')
 
         standingsDict = copy.deepcopy(pod.to.playersDict)
@@ -28,15 +28,27 @@ class PrintService(object):
         for players in standingsDict:
             tempName = standingsDict[players]['Name']
             tempPoints = standingsDict[players]['Points']
-            tempOMW = standingsDict[players]['OMW%'][0:6]
+            tempOMW = standingsDict[players]['OMW%']
             print('%s. %s \t %s \t\t %s' % (counter, tempName, tempPoints, tempOMW))
             counter += 1
-        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
     @staticmethod
     def print_welcome():
         print('**********************************************************************')
         print('*               WELCOME TO THE HAMBURG TOURNAMENT MAKER              *')
+        print('**********************************************************************')
+
+    @staticmethod
+    def printMenue(podNumber, amountPods):
+        print('******************************* MENUE ********************************')
+        print('*                                                                    *')
+        print('* 1. Start/Resume Round of current Pod   2. Switch to next Pod       *')
+        print('*                                                                    *')
+        print('* 3. Show Standings of current Pod       4. Add Pod                  *')
+        print('*                                                                    *')
+        print('* 5. Show Seatings                                                   *')
+        print('*                    (Current Pod: %i from %i Pods)                    *' %(podNumber+1, amountPods))
         print('**********************************************************************')
 
     @staticmethod
