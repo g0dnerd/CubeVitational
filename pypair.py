@@ -65,7 +65,7 @@ class Tournament(object):
                                       "Opponents": [],
                                       "Results": [],
                                       "Points": 0,
-                                      "OMW%": 0.0,
+                                      "OMW%": '0.0',
                                       "Fixed Seating": fixedSeating}
 
     def load_player_csv(self, pathToLoad):

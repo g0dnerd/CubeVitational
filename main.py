@@ -42,6 +42,7 @@ def report_results(pairings_, playerList_):
                 resultList = list()
                 try:
                     pod.currentResults.insert(tableNumber - 1, result)
+                    print(type(result[0]))
                     resultList.append(result[0])
                     resultList.append(result[2])
                     resultList.append(result[4])
@@ -91,18 +92,19 @@ def main():
     for p in range(len(podTwo.playerList[0])):
         toTwo.add_player(podTwo.playerList[0][p], podTwo.playerList[1][p], False)
 
+    print(podTwo.playerList)
+
     for round_ in range(3):
         podTwo.new_pairings(toTwo.pair_round())
         printService.print_pairings(podTwo)
 
         report_results(podTwo.currentPairings, podTwo.playerList)
 
-        # Print out standings merged with the standings from the first pod
+        # Print out current standings
+        printService.print_standings(toTwo, podTwo)
+        podTwo.roundNumber += 1
 
-
-
-
-        # Repeat until finished
+    printService.print_merged_standings(toTwo, podTwo, to)
 
 
 if __name__ == "__main__":
