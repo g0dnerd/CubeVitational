@@ -1,9 +1,15 @@
+# pypair tournament maker branch for the CubeVitational Hamburg,
+# a cube tournament with the following tournament structure:
+# 16 people in two groups of 8 play two drafts each.
+# these drafts are 3 rounds each and seatings are re-done after the fist pod.
+# # After both drafts, a cut to top 8 over both groups is made.
+
 from pypair import Tournament
 from printService import PrintService
 from pod import Pod
 
 # USER-DEFINED VARIABLES
-ROUND_NUMBER = 3
+ROUND_NUMBER = 6
 
 # Define Classes 
 printService = PrintService()
@@ -35,7 +41,7 @@ def report_results(pairings_, playerList_):
                 result = input('Enter result %s vs %s in W-L-D format: ' % (player1, player2))
                 resultList = list()
                 try:
-                    pod.current_results.insert(tableNumber - 1, result)
+                    pod.currentResults.insert(tableNumber - 1, result)
                     resultList.append(result[0])
                     resultList.append(result[2])
                     resultList.append(result[4])
@@ -65,7 +71,7 @@ def main():
         to.add_player(pod.playerList[0][p], pod.playerList[1][p], False)
 
     # Start Tournament
-    for round_ in range(ROUND_NUMBER):
+    for round_ in range(3):
         pod.new_pairings(to.pair_round())
         printService.print_pairings(pod)
 
@@ -75,7 +81,28 @@ def main():
         printService.print_standings(to, pod)
         pod.roundNumber += 1
 
-        # Repeat till Finish
+    # Initialize the second pod for the group with new random seatings
+    toTwo = Tournament()
+    podTwo = Pod()
+    podTwo.load_players()
+    podTwo.randomize_seating()
+
+    # Add Players to Tournament
+    for p in range(len(podTwo.playerList[0])):
+        toTwo.add_player(podTwo.playerList[0][p], podTwo.playerList[1][p], False)
+
+    for round_ in range(3):
+        podTwo.new_pairings(toTwo.pair_round())
+        printService.print_pairings(podTwo)
+
+        report_results(podTwo.currentPairings, podTwo.playerList)
+
+        # Print out standings merged with the standings from the first pod
+
+
+
+
+        # Repeat until finished
 
 
 if __name__ == "__main__":

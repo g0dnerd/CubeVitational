@@ -11,7 +11,7 @@ class PrintService(object):
         for table in pod.currentPairings:
             player1 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[table][0])]
             player2 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[table][1])]
-            result = pod.current_results[table - 1]
+            result = pod.currentResults[table - 1]
             print('* Table %s:  %s \t - %s \t | \t %s                        ' % (table, player1, player2, result))
         print('**********************************************************************')
         print("")
@@ -32,6 +32,11 @@ class PrintService(object):
             print('%s. %s \t %s \t\t %s' % (counter, tempName, tempPoints, tempOMW))
             counter += 1
         print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+
+    @staticmethod
+    def print_merged_standings(to, pod, oldTo):
+        print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber+3)
+        print('   Name  \tPoints     \tOMW')
 
     @staticmethod
     def print_welcome():
