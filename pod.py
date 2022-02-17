@@ -13,17 +13,16 @@ class Pod:
     current_results = []
 
     def randomize_seating(self):
-        tempPlayerList = copy.deepcopy(Pod.playerList)
+        tempPlayerList = copy.deepcopy(self.playerList)
         [random.shuffle(sublist) for sublist in tempPlayerList]
-        for i in range(len(Pod.playerList[0])):
-            tempPlayerList[0][i] = Pod.playerList[0][Pod.playerList[1].index(tempPlayerList[1][i])]
+        for i in range(len(self.playerList[0])):
+            tempPlayerList[0][i] = self.playerList[0][self.playerList[1].index(tempPlayerList[1][i])]
 
         # print("\n Randomized seatings for this group: ", tempPlayerList[1])
-        Pod.playerList = tempPlayerList
+        self.playerList = tempPlayerList
         printService.print_table(self)
 
-    @staticmethod
-    def load_players():
+    def load_players(self):
         listToFill = [[] for _ in range(2)]
         # csvPath = input("Please enter the full name of the relevant CSV file: ")
         # print("Please enter the full name of the relevant CSV file: ")
@@ -36,9 +35,8 @@ class Pod:
                     listToFill[0].append(int(player[0]))
                     listToFill[1].append(player[1])
 
-        Pod.playerList = listToFill
+        self.playerList = listToFill
 
-    @staticmethod
-    def new_pairings(new_pairings):
-        Pod.currentPairings = new_pairings
-        Pod.current_results = ["MISSING"] * len(Pod.currentPairings)
+    def new_pairings(self, new_pairings):
+        self.currentPairings = new_pairings
+        self.current_results = ["MISSING"] * len(self.currentPairings)
