@@ -96,7 +96,7 @@ def main():
 
     for round_ in range(3):
         podTwo.new_pairings(toTwo.pair_round())
-        printService.print_pairings(podTwo)
+        # printService.print_pairings(podTwo)
 
         report_results(podTwo.currentPairings, podTwo.playerList)
 
