@@ -25,11 +25,23 @@ def main():
         # Start/Resume Round of current Pod
         if option == '1':
             try:
-                for round_ in range(ROUND_NUMBER):
+                while True:
                     printService.print_pairings(pods[podNumber])
-                    choice = reportingService.report_results(pods[podNumber])
+                    choice = input('Please choose the result you want to input (m = menu, f = finish round): ')
                     if choice == 'm':
                         break
+
+                    elif choice == 'f':
+                        pods[podNumber].new_pairings()
+                        pods[podNumber].roundNumber += 1
+                        printService.print_standings(pods[podNumber])
+
+                    elif reportingService.is_legal_table(choice, pods[podNumber]):
+                        reportingService.report_results(pods[podNumber], choice)
+
+                    else:
+                        print("Error: please enter a valid table number, 'm' to go back to the menu or 'f' to "
+                              "finish the round.")
             except IndexError:
                 print("Error: Please create a pod first.")
 
