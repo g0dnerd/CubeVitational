@@ -6,7 +6,7 @@
 * Refactor: Reporting (Move Report Function from Main to...)
 *
 * Bug: printService -> printTable: Odd amount of Players lead to an issue at the table (double/missing players)
-* Bug: Switchen between Pods during running Tournament shifts exisiting reluts to wrong table
+* Bug: Switching between Pods during running Tournament shifts existing results to wrong table
 
 # DONE
 * Refactored and split up code to allow for integration down the line
