@@ -6,9 +6,7 @@ ROUND_NUMBER = 3
 
 # Define Classes 
 printService = PrintService()
-podOne = Pod()
-podTwo = Pod()
-podLarge = Pod()
+pods = []
 
 
 ###################### Reporting ######################
@@ -21,80 +19,95 @@ def get_nth_key(dictionary, n=0):
     raise IndexError("dictionary index out of range")
 
 
-def report_results(pairings_, playerList_, pod_):
+def report_results(pod):
     choice = ''
 
-    while choice != 'q':
-        choice = input('Please choose the result you want to enter or input q to finish inputting results: ')
+    while (choice != 'm') and (choice != 'f'):
+        choice = input('Please choose the result you want to input (m = menu, f = finish round): ')
 
-        if choice != 'q':
+        # Report results
+        if (choice != 'm') and (choice != 'f'):
             try:
-                tableNumber = get_nth_key(pairings_, int(choice) - 1)
-                player1 = playerList_[1][playerList_[0].index(pairings_[tableNumber][0])]
-                player2 = playerList_[1][playerList_[0].index(pairings_[tableNumber][1])]
+                tableNumber = get_nth_key(pod.currentPairings, int(choice) - 1)
+                player1 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[tableNumber][0])]
+                player2 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[tableNumber][1])]
                 result = input('Enter result %s vs %s in W-L-D format: ' % (player1, player2))
                 resultList = list()
                 try:
-                    pod_.currentResults.insert(tableNumber - 1, result)
-                    podLarge.currentResults.insert(tableNumber - 1, result)
+                    pod.current_results.insert(tableNumber - 1, result)
                     resultList.append(result[0])
                     resultList.append(result[2])
                     resultList.append(result[4])
-                    pod_.to.report_match(tableNumber, resultList)
-                    podLarge.to.report_match(tableNumber, resultList)
+                    pod.to.report_match(tableNumber, resultList)
                 except IndexError:
                     print("Error: Result must be entered in W-L-D formatting (e.g. 2-1-0)")
             except ValueError:
                 print("Error: Invalid input. Input must either be a table number from above or q to finish inputting "
                       "results.")
+        # Finish Round
+        elif choice == 'f':
+            pod.new_pairings()
+            pod.roundNumber += 1
+            printService.print_standings(pod)
 
-            printService.print_pairings(pod_)
+        return choice
 
 
 ###################### Start Application  ######################
 def main():
-    # Welcome 
+    # Welcome and Init
     printService.print_welcome()
+    podNumber = 0
+    init_new_pod()
 
-    # Init pods
-    podOne.load_players()
-    podTwo.load_players()
-    podLarge.load_players()
+    # ************** Menu ********************
+    while True:
+        printService.print_menu(podNumber, len(pods))
+        option = input("* Please choose Option:")
 
-    # Randomize seatings - import them for the overview pod
-    podOne.randomize_seating()
-    podLarge.import_seating(podOne)
+        # Start/Resume Round of current Pod
+        if option == '1':
+            for round_ in range(ROUND_NUMBER):
+                printService.print_pairings(pods[podNumber])
 
-    # Start the first of two pods
-    for round_ in range(ROUND_NUMBER):
-        podOne.new_pairings()
-        podLarge.import_pairings(podOne)
-        printService.print_pairings(podOne)
+                choice = report_results(pods[podNumber])
+                if choice == 'm':
+                    break
 
-        report_results(podOne.currentPairings, podOne.playerList, podOne)
+        # Switch to next Pod
+        elif option == '2':
+            if (len(pods) - 1) == podNumber:
+                podNumber = 0
+            else:
+                podNumber += 1
 
-        # Print out current standings
-        printService.print_standings(podLarge)
-        podOne.roundNumber += 1
-        podLarge.roundNumber += 1
+            printService.print_pairings(pods[podNumber])
 
-        # Repeat till Finish
+        # Show Standings of current Pod 
+        elif option == '3':
+            printService.print_standings(pods[podNumber])
 
-    # Start the second of two pods
-    podTwo.randomize_seating()
+        # Add Pod
+        elif option == '4':
+            print("Add Pod")
+            init_new_pod()
 
-    for round_ in range(ROUND_NUMBER):
-        podTwo.new_pairings()
-        podLarge.import_pairings(podTwo.currentPairings)
-        printService.print_pairings(podTwo)
+        # Show seatings
+        elif option == '5':
+            printService.print_table(pods[podNumber])
 
-        report_results(podTwo.currentPairings, podTwo.playerList, podTwo)
+        elif option == '6':
+            pods[podNumber].new_pairings()
+        # Default / CatchAll
+        else:
+            print("* Please choose from Options                                            *")
 
-        # Print out current standings
-        print(podLarge.playerList)
-        printService.print_standings(podLarge)
-        podTwo.roundNumber += 1
-        podLarge.roundNumber += 1
+
+def init_new_pod():
+    pods.append(Pod())
+    pods[len(pods) - 1].load_players()
+    pods[len(pods) - 1].randomize_seating()
+    pods[len(pods) - 1].new_pairings()
 
 
 if __name__ == "__main__":
