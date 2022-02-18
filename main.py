@@ -1,4 +1,5 @@
 # from nis import match
+import csv
 from printService import PrintService
 from pod import Pod
 
@@ -83,8 +84,7 @@ def main():
             else:
                 podNumber += 1
 
-            print(pods[podNumber].currentPairings)
-            # printService.print_pairings(pods[podNumber])
+            printService.print_pairings(pods[podNumber])
 
         # Show Standings of current Pod 
         elif option == '3':
@@ -107,15 +107,10 @@ def main():
 
 
 def init_new_pod():
+
     pods.append(Pod())
-    # print(len(pods))
-
     pods[len(pods) - 1].load_players()
-    # print(pods[len(pods)-1].playerList)
-
     pods[len(pods) - 1].randomize_seating()
-    # print(pods[len(pods)-1].playerList)
-
     pods[len(pods) - 1].new_pairings()
 
 

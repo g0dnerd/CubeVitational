@@ -5,11 +5,12 @@ from pypair import Tournament
 
 
 class Pod:
-    to = Tournament()
-    roundNumber = 1
-    playerList = []
-    currentPairings = []
-    current_results = []
+    def __init__(self):
+        self.to = Tournament()
+        self.roundNumber = 1
+        self.playerList = []
+        self.currentPairings = []
+        self.current_results = []
 
     def randomize_seating(self):
         tempPlayerList = copy.deepcopy(self.playerList)
@@ -39,8 +40,5 @@ class Pod:
             self.to.add_player(self.playerList[0][p], self.playerList[1][p], False)
 
     def new_pairings(self):
-        print("New Pairings")
-        print(self.to.playersDict)
         self.currentPairings = self.to.pair_round()
-        print(self.currentPairings)
         self.current_results = ["MISSING"] * len(self.currentPairings)
