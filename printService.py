@@ -47,7 +47,7 @@ class PrintService(object):
         print('*                                                                    *')
         print('* 3. Show Standings of current Pod       4. Add Pod                  *')
         print('*                                                                    *')
-        print('* 5. Show Seatings                                                   *')
+        print('* 5. Show Seatings                       6. Add multi-draft pod      *')
         print('*                    (Current Pod: %i from %i Pods)                    *' % (podNumber + 1, amountPods))
         print('**********************************************************************')
 

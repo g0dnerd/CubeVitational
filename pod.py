@@ -42,3 +42,10 @@ class Pod:
     def new_pairings(self):
         self.currentPairings = self.to.pair_round()
         self.current_results = ["MISSING"] * len(self.currentPairings)
+
+
+class MultiPod(Pod):
+    def __init__(self, roundNumber, draftsAmount):
+        super().__init__()
+        self.roundNumber = roundNumber
+        self.draftsAmount = draftsAmount

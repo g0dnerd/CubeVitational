@@ -1,9 +1,10 @@
 from printService import PrintService
 import reportingService
-from pod import Pod
+from pod import Pod, MultiPod
 
 # USER-DEFINED VARIABLES
 ROUND_NUMBER = 3
+DRAFT_AMOUNT = 2
 
 # Define Classes 
 printService = PrintService()
@@ -15,46 +16,59 @@ def main():
     # Welcome and Init
     printService.print_welcome()
     podNumber = 0
-    init_new_pod()
 
     # ************** Menu ********************
     while True:
         printService.print_menu(podNumber, len(pods))
-        option = input("* Please choose Option:")
+        option = input("* Please choose an option: ")
 
         # Start/Resume Round of current Pod
         if option == '1':
-            for round_ in range(ROUND_NUMBER):
-                printService.print_pairings(pods[podNumber])
-
-                choice = reportingService.report_results(pods[podNumber])
-                if choice == 'm':
-                    break
+            try:
+                for round_ in range(ROUND_NUMBER):
+                    printService.print_pairings(pods[podNumber])
+                    choice = reportingService.report_results(pods[podNumber])
+                    if choice == 'm':
+                        break
+            except IndexError:
+                print("Error: Please create a pod first.")
 
         # Switch to next Pod
         elif option == '2':
-            if (len(pods) - 1) == podNumber:
-                podNumber = 0
-            else:
-                podNumber += 1
+            try:
+                if (len(pods) - 1) == podNumber:
+                    podNumber = 0
+                else:
+                    podNumber += 1
 
-            printService.print_pairings(pods[podNumber])
+                printService.print_pairings(pods[podNumber])
+            except IndexError:
+                print("Error: Please create a pod first.")
 
         # Show Standings of current Pod 
         elif option == '3':
-            printService.print_standings(pods[podNumber])
+            try:
+                printService.print_standings(pods[podNumber])
+            except IndexError:
+                print("Error: Please create a pod first.")
 
         # Add Pod
         elif option == '4':
-            print("Add Pod")
+            print("Add pod")
             init_new_pod()
 
         # Show seatings
         elif option == '5':
-            printService.print_table(pods[podNumber])
+            try:
+                printService.print_table(pods[podNumber])
+            except IndexError:
+                print("Error: Please create a pod first.")
 
+        # create multi-draft pod
         elif option == '6':
-            pods[podNumber].new_pairings()
+            print("Add multi-draft pod")
+            init_new_multi_pod()
+
         # Default / CatchAll
         else:
             print("* Please choose from Options                                            *")
@@ -62,6 +76,13 @@ def main():
 
 def init_new_pod():
     pods.append(Pod())
+    pods[len(pods) - 1].load_players()
+    pods[len(pods) - 1].randomize_seating()
+    pods[len(pods) - 1].new_pairings()
+
+
+def init_new_multi_pod():
+    pods.append(MultiPod(ROUND_NUMBER, DRAFT_AMOUNT))
     pods[len(pods) - 1].load_players()
     pods[len(pods) - 1].randomize_seating()
     pods[len(pods) - 1].new_pairings()
