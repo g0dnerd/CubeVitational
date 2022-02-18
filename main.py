@@ -1,5 +1,3 @@
-# from nis import match
-import csv
 from printService import PrintService
 from pod import Pod
 
@@ -76,7 +74,6 @@ def main():
                 if choice == 'm':
                     break
 
-
         # Switch to next Pod
         elif option == '2':
             if (len(pods) - 1) == podNumber:
@@ -107,7 +104,6 @@ def main():
 
 
 def init_new_pod():
-
     pods.append(Pod())
     pods[len(pods) - 1].load_players()
     pods[len(pods) - 1].randomize_seating()
