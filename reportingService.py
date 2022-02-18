@@ -14,14 +14,19 @@ def is_legal_result(result_):
         total_numbers += int(numbers)
 
     if len(result_) != 5:
+        print("Invalid result!")
         return False
     elif any(number > 2 for number in numbers_in_result):
+        print("Invalid result!")
         return False
     elif any(number < 0 for number in numbers_in_result):
+        print("Invalid result!")
         return False
     elif total_numbers > 3 or total_numbers < 1:
+        print("Invalid result!")
         return False
     else:
+        print("Valid result!")
         return True
 
 

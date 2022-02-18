@@ -1,6 +1,7 @@
 import copy
 import csv
 import random
+from reportingService import get_nth_key
 from pypair import Tournament
 
 
@@ -45,7 +46,43 @@ class Pod:
 
 
 class MultiPod(Pod):
-    def __init__(self, roundNumber, draftsAmount):
+    def __init__(self, roundNumber_, draftsAmount):
         super().__init__()
-        self.roundNumber = roundNumber
+        self.roundsAmount = roundNumber_
         self.draftsAmount = draftsAmount
+        self.draftNumber = 1
+
+    def reset_pod(self):
+        self.to = Tournament()
+        self.roundNumber = 1
+        self.currentPairings = []
+        self.current_results = []
+        self.draftNumber += 1
+
+        for p in range(len(self.playerList[0])):
+            self.to.add_player(self.playerList[0][p], self.playerList[1][p], False)
+
+
+class TrackingPod(Pod):
+    def __init__(self):
+        super().__init__()
+
+    def shadow_playerlist(self, pod_):
+        self.playerList = copy.deepcopy(pod_.playerList)
+        for p in range(len(self.playerList[0])):
+            self.to.add_player(self.playerList[0][p], self.playerList[1][p], False)
+
+    def shadow_pairings(self, pod_):
+        self.currentPairings = copy.deepcopy(pod_.currentPairings)
+        for table in self.currentPairings:
+            self.to.pair_players(self.currentPairings[table][0], self.currentPairings[table][1])
+
+    def shadow_results(self, pod_):
+        self.current_results = copy.deepcopy(pod_.current_results)
+        result = list()
+        for matches in range(len(self.currentPairings)):
+            result.clear()
+            result.append(self.current_results[matches][0])
+            result.append(self.current_results[matches][2])
+            result.append(self.current_results[matches][4])
+            self.to.report_match(matches, result)
