@@ -95,8 +95,10 @@ class PrintService(object):
         print('\nxxxxxxxxxxxxxxxxxxxxxxxx FINAL STANDINGS xxxxxxxxxxxxxxxxxxxxx')
         print('   Name  \tPoints     \tOMW')
 
-        all_players_dict = OrderedDict(sorted(all_players_dict.items(), reverse=True, key=lambda x: getitem(x[1], 'OMW%')))
-        all_players_dict = OrderedDict(sorted(all_players_dict.items(), reverse=True, key=lambda x: getitem(x[1], 'Points')))
+        all_players_dict = OrderedDict(sorted(all_players_dict.items(),
+                                              reverse=True, key=lambda x: getitem(x[1], 'OMW%')))
+        all_players_dict = OrderedDict(sorted(all_players_dict.items(),
+                                              reverse=True, key=lambda x: getitem(x[1], 'Points')))
         counter = 1
         for players in all_players_dict:
             tempName = all_players_dict[players]['Name']
