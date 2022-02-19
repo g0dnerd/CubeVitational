@@ -56,6 +56,8 @@ class PrintService(object):
         print('* 3. Show Standings of current Pod       4. Add Pod                  *')
         print('*                                                                    *')
         print('* 5. Show Seatings                       6. Add multi-draft pod      *')
+        print('*                                                                    *')
+        print('* 7. Cut multi-pods for Top8             8. Exit                     *')
         print('*                    (Current Pod: %i from %i Pods)                    *' % (podNumber + 1, amountPods))
         print('**********************************************************************')
 
@@ -84,3 +86,22 @@ class PrintService(object):
         print('*\t\t\t  \\_____/')
         print('*\n*\t\t\t %i. %s ' % ((iter_backward + 1), local_playerList[iter_backward]))
         print('*')
+
+    @staticmethod
+    def print_merged_standings(pods_):
+        pod1 = pods_[0]
+        pod2 = pods_[1]
+        all_players_dict = {**pod1.to.playersDict, **pod2.to.playersDict}
+        print('\nxxxxxxxxxxxxxxxxxxxxxxxx FINAL STANDINGS xxxxxxxxxxxxxxxxxxxxx')
+        print('   Name  \tPoints     \tOMW')
+
+        all_players_dict = OrderedDict(sorted(all_players_dict.items(), reverse=True, key=lambda x: getitem(x[1], 'OMW%')))
+        all_players_dict = OrderedDict(sorted(all_players_dict.items(), reverse=True, key=lambda x: getitem(x[1], 'Points')))
+        counter = 1
+        for players in all_players_dict:
+            tempName = all_players_dict[players]['Name']
+            tempPoints = all_players_dict[players]['Points']
+            tempOMW = all_players_dict[players]['OMW%']
+            print('%s. %s \t %s \t\t %s' % (counter, tempName, tempPoints, tempOMW))
+            counter += 1
+        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n')

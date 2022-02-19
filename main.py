@@ -53,6 +53,8 @@ def main():
                                 printService.print_standings(tracking_pods[trackingPodNumber])
                                 pods[podNumber].reset_pod()
                                 pods[podNumber].new_pairings()
+                                pods[podNumber].randomize_seating()
+                                printService.print_table(pods[podNumber])
                                 tracking_pods[trackingPodNumber].shadow_pairings(pods[podNumber])
 
                             else:
@@ -113,6 +115,12 @@ def main():
             init_new_multi_pod()
             tracking_pods[len(tracking_pods) - 1].shadow_playerlist(pods[len(pods) - 1])
             tracking_pods[len(tracking_pods) - 1].shadow_pairings(pods[len(pods) - 1])
+
+        elif option == '7':
+            printService.print_merged_standings(tracking_pods)
+
+        elif option == '8':
+            exit()
 
         # Default / CatchAll
         else:
