@@ -18,15 +18,7 @@ class PrintService(object):
 
     @staticmethod
     def print_standings(pod):
-        from pod import MultiPod
-        if not issubclass(type(pod), MultiPod):
-            print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
-        else:
-            if pod.draftNumber > 1:
-                print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx'
-                      % pod.roundNumber + pod.roundNumber * pod.draftNumber)
-            else:
-                print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
+        print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
         print('   Name  \tPoints     \tOMW')
 
         standingsDict = copy.deepcopy(pod.to.playersDict)
