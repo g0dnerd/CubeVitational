@@ -11,14 +11,22 @@ class PrintService(object):
         for table in pod.currentPairings:
             player1 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[table][0])]
             player2 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[table][1])]
-            result = pod.current_results[table - 1]
+            result = pod.currentResults[table - 1]
             print('* Table %s:  %s \t - %s \t | \t %s                        ' % (table, player1, player2, result))
         print('**********************************************************************')
         print("")
 
     @staticmethod
     def print_standings(pod):
-        print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
+        from pod import MultiPod
+        if not issubclass(type(pod), MultiPod):
+            print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
+        else:
+            if pod.draftNumber > 1:
+                print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx'
+                      % pod.roundNumber + pod.roundNumber * pod.draftNumber)
+            else:
+                print('\nxxxxxxxxxxxxxxxxxxxxxxxx STANDINGS AFTER ROUND %s xxxxxxxxxxxxxxxxxxxxx' % pod.roundNumber)
         print('   Name  \tPoints     \tOMW')
 
         standingsDict = copy.deepcopy(pod.to.playersDict)

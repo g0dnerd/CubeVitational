@@ -75,7 +75,7 @@ def main():
             except IndexError:
                 print("Error: Please create a pod first.")
 
-        # create multi-draft pod
+        # empty option
         elif option == '6':
             pass
 

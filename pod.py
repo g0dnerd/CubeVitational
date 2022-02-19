@@ -10,7 +10,7 @@ class Pod:
         self.roundNumber = 1
         self.playerList = []
         self.currentPairings = []
-        self.current_results = []
+        self.currentResults = []
 
     def randomize_seating(self):
         tempPlayerList = copy.deepcopy(self.playerList)
@@ -41,4 +41,4 @@ class Pod:
 
     def new_pairings(self):
         self.currentPairings = self.to.pair_round()
-        self.current_results = ["MISSING"] * len(self.currentPairings)
+        self.currentResults = ["MISSING"] * len(self.currentPairings)
