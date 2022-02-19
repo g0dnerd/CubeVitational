@@ -41,7 +41,6 @@ def main():
                         else:
                             # if the current pod is a multi-pod draft, but not in its final round yet, proceed as usual
                             if pods[podNumber].roundNumber < pods[podNumber].roundsAmount:
-                                print(tracking_pods[trackingPodNumber].currentPairings)
                                 tracking_pods[trackingPodNumber].shadow_results(pods[podNumber])
                                 pods[podNumber].new_pairings()
                                 pods[podNumber].roundNumber += 1
@@ -50,14 +49,16 @@ def main():
 
                             # if a draft in the pod is finished, reset the multi-pod
                             elif pods[podNumber].draftNumber < DRAFT_AMOUNT:
+                                tracking_pods[trackingPodNumber].shadow_results(pods[podNumber])
                                 printService.print_standings(tracking_pods[trackingPodNumber])
                                 pods[podNumber].reset_pod()
                                 pods[podNumber].new_pairings()
                                 tracking_pods[trackingPodNumber].shadow_pairings(pods[podNumber])
-                                pods[podNumber].roundNumber += 1
 
                             else:
+                                tracking_pods[trackingPodNumber].shadow_results(pods[podNumber])
                                 printService.print_standings(tracking_pods[trackingPodNumber])
+                                break
 
                     # if a legal table number was entered, report the result
                     elif reportingService.is_legal_table(choice, pods[podNumber]):
@@ -87,7 +88,10 @@ def main():
         # Show Standings of current Pod 
         elif option == '3':
             try:
-                printService.print_standings(pods[podNumber])
+                if not issubclass(type(pods[podNumber]), MultiPod):
+                    printService.print_standings(pods[podNumber])
+                else:
+                    printService.print_standings(tracking_pods[trackingPodNumber])
             except IndexError:
                 print("Error: Please create a pod first.")
 

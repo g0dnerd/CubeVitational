@@ -245,6 +245,12 @@ class Tournament(object):
             # If there are still tables out, and we haven't had a forced pairing, return the tables still "playing"
             return self.tablesOut
 
+    def reset_round(self):
+        self.currentRound += 1
+        self.roundPairings = {}
+
+        self.openTable = self.startingTable
+
     def pair_players(self, p1, p2):
         printdbg("Pairing players %s and %s" % (p1, p2), 5)
 

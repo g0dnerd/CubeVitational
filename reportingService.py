@@ -16,26 +16,29 @@ def is_legal_result(result_):
     if len(result_) != 5:
         print("Invalid result!")
         return False
-    elif any(number > 2 for number in numbers_in_result):
+    elif any(int(number) > 2 for number in numbers_in_result):
         print("Invalid result!")
         return False
-    elif any(number < 0 for number in numbers_in_result):
+    elif any(int(number) < 0 for number in numbers_in_result):
         print("Invalid result!")
         return False
     elif total_numbers > 3 or total_numbers < 1:
         print("Invalid result!")
         return False
     else:
-        print("Valid result!")
         return True
 
 
 def is_legal_table(table, pod):
-    table = int(table)
-    if table < 1 or table >= len(pod.current_results):
+    try:
+        table = int(table)
+        if table < 1 or table >= len(pod.currentResults):
+            return False
+        else:
+            return True
+    except ValueError:
+        print("Invalid table!")
         return False
-    else:
-        return True
 
 
 def get_nth_key(dictionary, n=0):
@@ -53,11 +56,12 @@ def report_results(pod, table):
     player2 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[tableNumber][1])]
     result = input('Enter result %s vs %s in W-L-D format: ' % (player1, player2))
     resultList = list()
-    try:
-        pod.current_results.insert(tableNumber - 1, result)
-        resultList.append(result[0])
-        resultList.append(result[2])
-        resultList.append(result[4])
-        pod.to.report_match(tableNumber, resultList)
-    except IndexError:
-        print("Error: Result must be entered in W-L-D formatting (e.g. 2-1-0)")
+    if is_legal_result(result):
+        try:
+            pod.currentResults.insert(tableNumber - 1, result)
+            resultList.append(result[0])
+            resultList.append(result[2])
+            resultList.append(result[4])
+            pod.to.report_match(tableNumber, resultList)
+        except IndexError:
+            print("Error: Result must be entered in W-L-D formatting (e.g. 2-1-0)")

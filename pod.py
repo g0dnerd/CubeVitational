@@ -11,7 +11,7 @@ class Pod:
         self.roundNumber = 1
         self.playerList = []
         self.currentPairings = []
-        self.current_results = []
+        self.currentResults = []
 
     def randomize_seating(self):
         tempPlayerList = copy.deepcopy(self.playerList)
@@ -42,7 +42,7 @@ class Pod:
 
     def new_pairings(self):
         self.currentPairings = self.to.pair_round()
-        self.current_results = ["MISSING"] * len(self.currentPairings)
+        self.currentResults = ["MISSING"] * len(self.currentPairings)
 
 
 class MultiPod(Pod):
@@ -56,7 +56,7 @@ class MultiPod(Pod):
         self.to = Tournament()
         self.roundNumber = 1
         self.currentPairings = []
-        self.current_results = []
+        self.currentResults = []
         self.draftNumber += 1
 
         for p in range(len(self.playerList[0])):
@@ -73,16 +73,21 @@ class TrackingPod(Pod):
             self.to.add_player(self.playerList[0][p], self.playerList[1][p], False)
 
     def shadow_pairings(self, pod_):
+        self.to.reset_round()
         self.currentPairings = copy.deepcopy(pod_.currentPairings)
         for table in self.currentPairings:
             self.to.pair_players(self.currentPairings[table][0], self.currentPairings[table][1])
 
     def shadow_results(self, pod_):
-        self.current_results = copy.deepcopy(pod_.current_results)
+        self.currentResults = copy.deepcopy(pod_.currentResults)
         result = list()
         for matches in range(len(self.currentPairings)):
+            tableNumber = get_nth_key(self.currentPairings, matches)
             result.clear()
-            result.append(self.current_results[matches][0])
-            result.append(self.current_results[matches][2])
-            result.append(self.current_results[matches][4])
-            self.to.report_match(matches, result)
+            result.append(self.currentResults[matches][0])
+            result.append(self.currentResults[matches][2])
+            result.append(self.currentResults[matches][4])
+            p1_name = self.to.playersDict[self.currentPairings[tableNumber][0]]["Name"]
+            p2_name = self.to.playersDict[self.currentPairings[tableNumber][1]]["Name"]
+            print("Reporting result %s vs %s: %s - %s - %s" % (p1_name, p2_name, result[0], result[1], result[2]))
+            self.to.report_match(tableNumber, result)
