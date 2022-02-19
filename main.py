@@ -67,7 +67,7 @@ def main():
                     else:
                         print("Error: please enter a valid table number, 'm' to go back to the menu or 'f' to "
                               "finish the round.")
-            except FileNotFoundError:
+            except IndexError:
                 print("Error: Please create a pod first.")
 
         # Switch to next Pod
