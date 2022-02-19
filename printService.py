@@ -7,14 +7,16 @@ class PrintService(object):
 
     @staticmethod
     def print_pairings(pod):
-        print('************************ PAIRINGS FOR ROUND %s ************************' % pod.roundNumber)
+        printResult = []
+        printResult.append('************************ PAIRINGS FOR ROUND %s ************************' % pod.roundNumber)
         for table in pod.currentPairings:
             player1 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[table][0])]
             player2 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[table][1])]
             result = pod.current_results[table - 1]
-            print('* Table %s:  %s \t - %s \t | \t %s                        ' % (table, player1, player2, result))
-        print('**********************************************************************')
-        print("")
+            printResult.append('* Table %s:  %s \t - %s \t | \t %s                        ' % (table, player1, player2, result))
+        printResult.append('**********************************************************************')
+        
+        return printResult
 
     @staticmethod
     def print_standings(pod):

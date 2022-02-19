@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% block content %}
+
+
+{% for pairing in pairings %}
+<p>{{ pairing }} </p> 
+{% endfor %}
+
+
+<form action="/resumeround" method="get">
+    <p>Enter Table Number: </p>
+    <p><input type="text" name="table" /></p>
+    <p>Enter Result in W-L-D format: </p>
+    <p><input type="text" name="result" /></p>
+    <p><input type="submit" value="Report" /></p>
+</form>
+
+{% endblock %}

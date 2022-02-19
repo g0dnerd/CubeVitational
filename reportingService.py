@@ -42,11 +42,10 @@ def get_nth_key(dictionary, n=0):
     raise IndexError("dictionary index out of range")
 
 
-def report_results(pod, table):
+def report_results(pod, table, result):
     tableNumber = get_nth_key(pod.currentPairings, int(table) - 1)
     player1 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[tableNumber][0])]
     player2 = pod.playerList[1][pod.playerList[0].index(pod.currentPairings[tableNumber][1])]
-    result = input('Enter result %s vs %s in W-L-D format: ' % (player1, player2))
     resultList = list()
     try:
         pod.current_results.insert(tableNumber - 1, result)
@@ -55,4 +54,4 @@ def report_results(pod, table):
         resultList.append(result[4])
         pod.to.report_match(tableNumber, resultList)
     except IndexError:
-        print("Error: Result must be entered in W-L-D formatting (e.g. 2-1-0)")
+        return "Error: Result must be entered in W-L-D formatting (e.g. 2-1-0)"

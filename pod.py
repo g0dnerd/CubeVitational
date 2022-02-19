@@ -23,9 +23,9 @@ class Pod:
 
     def load_players(self):
         listToFill = [[] for _ in range(2)]
-        csvPath = input("CSV file: ")
+        # csvPath = input("CSV file: ")
         # print("Please enter the full name of the relevant CSV file: ")
-        # csvPath = 'playerlist1.csv'
+        csvPath = '1.csv'
         with open(csvPath) as csvfile:
             playerReader = csv.reader(csvfile, delimiter=',')
             for player in playerReader:
